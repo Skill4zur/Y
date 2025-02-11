@@ -13,22 +13,35 @@ public class Camera {
     }
 
     public void update(Map map, float screenHeight, float screenWidth) {
-        int CurrentRoomId = player.getCurrentRoomId();
-        System.out.println(CurrentRoomId);
 
-        Room currentRoom = getRoomById(CurrentRoomId, map);
+        int currentRoomId = player.getCurrentRoomId();
+        Room currentRoom = getRoomById(currentRoomId, map);
 
+        // Center the camera on the current room if room is smaller than the screen
         if (currentRoom.getSizeX() < screenWidth && currentRoom.getSizeY() < screenHeight) {
-            // Center the camera on the current room
             x = currentRoom.getX() + (float) currentRoom.getSizeX() / 2;
             y = currentRoom.getY() + (float) currentRoom.getSizeY() / 2;
-        }
-        else {
-            // Add logic in order to make the camera stop when reaching the border of the room
-            x = player.getX();
-            y = player.getY();
+        } else {
+            // Update x based on player position and room size
+            x = (currentRoom.getSizeX() < screenWidth)
+                    ? currentRoom.getX() + (float) currentRoom.getSizeX() / 2
+                    : (player.getX() - screenWidth / 2 > currentRoom.getX() && player.getX() + screenWidth / 2 < currentRoom.getX() + currentRoom.getSizeX())
+                    ? player.getX()
+                    : (player.getX() - screenWidth / 2 < currentRoom.getX())
+                    ? currentRoom.getX() + screenWidth / 2
+                    : currentRoom.getX() + currentRoom.getSizeX() - screenWidth / 2;
+
+            // Update y based on player position and room size
+            y = (currentRoom.getSizeY() < screenHeight)
+                    ? currentRoom.getY() + (float) currentRoom.getSizeY() / 2
+                    : (player.getY() - screenHeight / 2 > currentRoom.getY() && player.getY() + screenHeight / 2 < currentRoom.getY() + currentRoom.getSizeY())
+                    ? player.getY()
+                    : (player.getY() - screenHeight / 2 < currentRoom.getY())
+                    ? currentRoom.getY() + screenHeight / 2
+                    : currentRoom.getY() + currentRoom.getSizeY() - screenHeight / 2;
         }
     }
+
 
     private Room getRoomById(int roomId, Map map) {
         for (Room room : map.getRoomList()) {

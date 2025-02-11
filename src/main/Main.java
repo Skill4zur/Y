@@ -60,11 +60,11 @@ public class Main {
 			throw new RuntimeException("Failed to create the GLFW window");
 
 		player = new Player();
-		player.init(700, 450);
+		player.init(700, 700);
 
 		map = new Map();
 		Room room1 = new Room(0, 0, 300, 300, 200, 200);
-		Room room2 = new Room(1, 0, 600, -800, 1800, 2200);
+		Room room2 = new Room(1, 0, 600, 600, 5500, 500);
 		map.addRoom(room1);
 		map.addRoom(room2);
 
