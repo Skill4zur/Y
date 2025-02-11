@@ -2,14 +2,16 @@ package map;
 
 import java.util.ArrayList;
 
-public class Salle {
+public class Room {
     private int ID;
+    private int type; //0 = Classic room, 1=Pathway
     private int x, y;
     private int sizeX, sizeY;
     private ArrayList<Object> listObjects;
 
-    public Salle(int ID, int x, int y, int sizeX, int sizeY) {
+    public Room(int ID, int type, int x, int y, int sizeX, int sizeY) {
         this.ID = ID;
+        this.type = type;
         this.x = x;
         this.y = y;
         this.sizeX = sizeX;

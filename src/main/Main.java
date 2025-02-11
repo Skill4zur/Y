@@ -1,16 +1,17 @@
 package main;
 
+import draw.DrawMain;
 import org.lwjgl.*;
 import org.lwjgl.glfw.*;
 import org.lwjgl.opengl.*;
-import org.lwjgl.system.*;
 import player.Player;
-import draw.DrawPlayer; // Ensure you have DrawPlayer class
+import map.Map;
+import map.Room;
+import player.Camera;
 
 import static org.lwjgl.glfw.Callbacks.*;
 import static org.lwjgl.glfw.GLFW.*;
 import static org.lwjgl.opengl.GL11.*;
-import static org.lwjgl.system.MemoryStack.*;
 import static org.lwjgl.system.MemoryUtil.*;
 
 public class Main {
@@ -19,9 +20,12 @@ public class Main {
 		new Main().run();
 	}
 
-	// The window handle
 	private long window;
-	private Player player; // Declare player at class level
+	private Player player;
+	private Map map;
+	private Camera camera;
+	private float screenWidth;
+	private float screenHeight;
 
 	public void run() {
 		System.out.println("Hello LWJGL " + Version.getVersion() + "!");
@@ -29,11 +33,8 @@ public class Main {
 		init();
 		loop();
 
-		// Free the window callbacks and destroy the window
 		glfwFreeCallbacks(window);
 		glfwDestroyWindow(window);
-
-		// Terminate GLFW and free the error callback
 		glfwTerminate();
 		glfwSetErrorCallback(null).free();
 	}
@@ -51,24 +52,30 @@ public class Main {
 
 		GLFWVidMode vidmode = glfwGetVideoMode(glfwGetPrimaryMonitor());
 
-		window = glfwCreateWindow(vidmode.width(), vidmode.height(),"Hello World!", NULL, NULL);
+		screenWidth = vidmode.width();
+		screenHeight = vidmode.height();
+
+		window = glfwCreateWindow((int) screenWidth, (int) screenHeight, "Hello World!", NULL, NULL);
 		if (window == NULL)
 			throw new RuntimeException("Failed to create the GLFW window");
 
-		player = new Player();  // Initialize player here
-		player.init(100, 100);
+		player = new Player();
+		player.init(1100, 900);
+
+		map = new Map();
+		Room room1 = new Room(0, 0, 300, 300, 200, 200);
+		Room room2 = new Room(1, 0, 600, 400, 1200, 3200);
+		map.addRoom(room1);
+		map.addRoom(room2);
+
+		camera = new Camera(player);
 
 		glfwSetKeyCallback(window, (window, key, scancode, action, mods) -> {
 			if (key == GLFW_KEY_ESCAPE && action == GLFW_RELEASE)
 				glfwSetWindowShouldClose(window, true);
 		});
 
-		// Set window position to (0,0) for fullscreen effect
-		glfwSetWindowPos(
-				window,
-				(0),
-				(0)
-		);
+		glfwSetWindowPos(window, 0, 0);
 
 		glfwMakeContextCurrent(window);
 		glfwSwapInterval(1);
@@ -78,36 +85,23 @@ public class Main {
 	private void loop() {
 		GL.createCapabilities();
 
-		// Set the clear color
 		glClearColor(0.0f, 0.0f, 0.0f, 0.0f);
 
-		// Set up a basic orthogonal projection matrix for 2D rendering
 		glMatrixMode(GL_PROJECTION);
 		glLoadIdentity();
-		glOrtho(0, glfwGetVideoMode(glfwGetPrimaryMonitor()).width(), glfwGetVideoMode(glfwGetPrimaryMonitor()).height(), 0, -1, 1);
+		glOrtho(0, screenWidth, screenHeight, 0, -1, 1);
 		glMatrixMode(GL_MODELVIEW);
 
-		// Run the rendering loop until the user has attempted to close
-		// the window or has pressed the ESCAPE key.
 		while (!glfwWindowShouldClose(window)) {
-			glClear(GL_COLOR_BUFFER_BIT | GL_DEPTH_BUFFER_BIT); // clear the framebuffer
+			glClear(GL_COLOR_BUFFER_BIT | GL_DEPTH_BUFFER_BIT);
 
-			player.update(window);  // Update player position based on input
-			DrawPlayer.draw(player); // Draw the player
+			player.update(window, map);
+			camera.update(map, screenHeight, screenWidth);
 
-			// Draw the red square in the center of the window
-			drawRedSquare();
+			DrawMain.drawAll(player, map, screenWidth, screenHeight, camera);
 
-			glfwSwapBuffers(window); // swap the color buffers
+			glfwSwapBuffers(window);
 			glfwPollEvents();
 		}
 	}
-
-	private void drawRedSquare() {
-
-		// for a 100px * 100px square
-		float x = glfwGetVideoMode(glfwGetPrimaryMonitor()).width() / 2 - 50;
-		float y = glfwGetVideoMode(glfwGetPrimaryMonitor()).height() / 2 - 50;
-	}
-
 }

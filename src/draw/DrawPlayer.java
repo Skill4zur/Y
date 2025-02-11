@@ -1,6 +1,5 @@
 package draw;
 
-import player.Player;
 import static org.lwjgl.opengl.GL11.*;
 
 public class DrawPlayer {
@@ -17,15 +16,12 @@ public class DrawPlayer {
         }
     }
 
-    public static void draw(Player player) {
-        float x = player.getX();
-        float y = player.getY();
+    public static void draw(float x, float y) {
         float size = 100.0f;
 
         glEnable(GL_TEXTURE_2D);
         glBindTexture(GL_TEXTURE_2D, playerTextureID);
 
-        // Ensure proper texture filtering
         glTexParameteri(GL_TEXTURE_2D, GL_TEXTURE_MIN_FILTER, GL_NEAREST);
         glTexParameteri(GL_TEXTURE_2D, GL_TEXTURE_MAG_FILTER, GL_NEAREST);
 
