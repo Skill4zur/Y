@@ -12,13 +12,9 @@ public class DrawMain {
     static Camera camera;
 
     public static float[] convertCartesianToGL(float x, float y) {
-        float adjustedX = x - camera.getX();
-        float adjustedY = y - camera.getY();
-
-        float glX = x // Use adjusted X for OpenGL
-        float glY = ScreenHeight/2 - adjustedY; // Adjust Y based on screen height
-
-        return new float[]{glX, glY};
+        float adjustedX = x - camera.getX() + ScreenWidth/2;
+        float adjustedY = -(y - camera.getY()) + ScreenHeight/2;
+        return new float[]{adjustedX, adjustedY};
     }
 
 

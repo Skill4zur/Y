@@ -7,7 +7,9 @@ public class Room {
     private int type; //0 = Classic room, 1=Pathway
     private int x, y;
     private int sizeX, sizeY;
-    private ArrayList<Object> listObjects;
+    private ArrayList<Entity> listEntitys;
+    private ArrayList<Wall> listWalls;
+
 
     public Room(int ID, int type, int x, int y, int sizeX, int sizeY) {
         this.ID = ID;
@@ -16,7 +18,8 @@ public class Room {
         this.y = y;
         this.sizeX = sizeX;
         this.sizeY = sizeY;
-        this.listObjects = new ArrayList<>();
+        this.listWalls = new ArrayList<>();
+        this.listEntitys = new ArrayList<>();
     }
 
     public int getID() {
@@ -39,11 +42,19 @@ public class Room {
         return sizeY;
     }
 
-    public ArrayList<Object> getListObjects() {
-        return listObjects;
+    public ArrayList<Entity> getListEntity() {
+        return listEntitys;
     }
 
-    public void addObject(Object obj) {
-        listObjects.add(obj);
+    public void addObject(Entity entity) {
+        listEntitys.add(entity);
+    }
+
+    public ArrayList<Wall> getListWalls() {
+        return listWalls;
+    }
+
+    public void addWall(Wall Wall) {
+        listWalls.add(Wall);
     }
 }

@@ -2,6 +2,7 @@ package player;
 
 import map.Map;
 import map.Room;
+import player.Player;
 
 public class Camera {
     private float x, y; // Camera position
@@ -13,13 +14,19 @@ public class Camera {
 
     public void update(Map map, float screenHeight, float screenWidth) {
         int CurrentRoomId = player.getCurrentRoomId();
+        System.out.println(CurrentRoomId);
 
         Room currentRoom = getRoomById(CurrentRoomId, map);
 
-        if (currentRoom != null) {
+        if (currentRoom.getSizeX() < screenWidth && currentRoom.getSizeY() < screenHeight) {
             // Center the camera on the current room
             x = currentRoom.getX() + (float) currentRoom.getSizeX() / 2;
             y = currentRoom.getY() + (float) currentRoom.getSizeY() / 2;
+        }
+        else {
+            // Add logic in order to make the camera stop when reaching the border of the room
+            x = player.getX();
+            y = player.getY();
         }
     }
 

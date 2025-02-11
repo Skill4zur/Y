@@ -28,6 +28,7 @@ public class Player {
 
         if ((glfwGetKey(window, GLFW_KEY_D) == GLFW_PRESS)){
         }
+
         if (isInsideRoom(newX, newY, map)) {
             x = newX;
             y = newY;
@@ -41,25 +42,12 @@ public class Player {
             float roomSizeX = room.getSizeX();
             float roomSizeY = room.getSizeY();
 
-
             if (newX >= roomX && newX + size <= roomX + roomSizeX &&
                     newY - size >= roomY && newY <= roomY + roomSizeY) {
-                CurrentRoomID = (newX >= roomX && newX + size <= roomX + roomSizeX &&
-                        newY - size >= roomY && newY <= roomY + roomSizeY) ? room.getID() : -1;
+                CurrentRoomID = room.getID();
                 return true;
             }
-
-            CurrentRoomID = (newX >= roomX && newX + size <= roomX + roomSizeX &&
-                    newY - size >= roomY && newY <= roomY + roomSizeY) ? room.getID() : -1;
-
-
-            if (CurrentRoomID != -1) {
-                x = (newX + size >= roomX + roomSizeX) ? roomX + roomSizeX - size : (newX <= roomX) ? roomX : x;
-                y = (newY - size <= roomY) ? roomY + size : (newY >= roomY + roomSizeY) ? roomY + roomSizeY : y;
-            }
         }
-
-
         return false;
     }
 
