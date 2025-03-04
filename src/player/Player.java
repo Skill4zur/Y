@@ -1,5 +1,6 @@
 package player;
 
+import map.Entity;
 import map.Map;
 import map.Room;
 import map.Wall;
@@ -9,11 +10,19 @@ import java.util.ArrayList;
 
 import static org.lwjgl.glfw.GLFW.*;
 
-public class Player {
+public class Player extends Entity {
     private float x, y;
     private float speed = 12.0f;
     private float size = 50.0f; // Adjusted size for better wall collision
-    private ArrayList<Image> render;
+    private ArrayList<Image> renderMovement;
+    private ArrayList<Image> renderAttack;
+    private ArrayList<Image> renderDamage; //Player takes damages
+    private ArrayList<Image> renderItemAnimation; //The PLAYER animation when using an item
+
+    public Player(int id, float x, float y) {
+        super(id, x, y);
+        init(x,y);
+    }
 
     public void init(float startX, float startY) {
         this.x = startX;
