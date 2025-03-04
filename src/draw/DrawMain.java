@@ -29,7 +29,14 @@ public class DrawMain {
 
         float[] glCoords = convertCartesianToGL(player.getX(), player.getY());
 
+        for (Room room : map.getRoomList()) {
+            List<Entity> entities = Room.getListEntities();
 
+            for (Entity entity : entities) {
+                float[] entityCoords = convertCartesianToGL(entity.getX(), entity.getY());
+                DrawEntity.draw(entityCoords[0], entityCoords[1], Animation.getTextureID(entity));
+            }
+        }
     }
 
 }
