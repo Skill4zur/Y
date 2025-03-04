@@ -1,5 +1,7 @@
 package draw;
 
+import data.TextureLoader;
+
 import static org.lwjgl.opengl.GL11.*;
 
 public class DrawPlayer {
@@ -18,6 +20,7 @@ public class DrawPlayer {
 
     public static void draw(float x, float y) {
         float size = 100.0f;
+        glColor3f(1.0f, 1.0f, 1.0f); // Room color (gray)
 
         glEnable(GL_TEXTURE_2D);
         glBindTexture(GL_TEXTURE_2D, playerTextureID);

@@ -14,8 +14,7 @@ public class Camera {
 
     public void update(Map map, float screenHeight, float screenWidth) {
 
-        int currentRoomId = player.getCurrentRoomId();
-        Room currentRoom = getRoomById(currentRoomId, map);
+        Room currentRoom = map.getCurrentRoom();
 
         // Center the camera on the current room if room is smaller than the screen
         if (currentRoom.getSizeX() < screenWidth && currentRoom.getSizeY() < screenHeight) {

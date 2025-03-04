@@ -1,4 +1,4 @@
-package draw;
+package data;
 
 import org.lwjgl.opengl.GL11;
 import org.lwjgl.stb.STBImage;
@@ -7,7 +7,6 @@ import java.nio.ByteBuffer;
 import java.nio.IntBuffer;
 
 import static org.lwjgl.system.MemoryStack.stackPush;
-import static org.lwjgl.system.MemoryUtil.NULL;
 
 public class TextureLoader {
     public static int loadTexture(String path) {

@@ -8,6 +8,7 @@ import player.Player;
 import map.Map;
 import map.Room;
 import player.Camera;
+import map.Wall;
 
 import static org.lwjgl.glfw.Callbacks.*;
 import static org.lwjgl.glfw.GLFW.*;
@@ -60,13 +61,16 @@ public class Main {
 			throw new RuntimeException("Failed to create the GLFW window");
 
 		player = new Player();
-		player.init(700, 700);
+		player.init(600, 700);
 
 		map = new Map();
 		Room room1 = new Room(0, 0, 300, 300, 200, 200);
 		Room room2 = new Room(1, 0, 600, 600, 5500, 500);
 		map.addRoom(room1);
 		map.addRoom(room2);
+
+		Wall wall1 = new Wall(150, 150, 200, 200); // (x, y, width, height)
+		room2.addWall(wall1);
 
 		camera = new Camera(player);
 
@@ -87,10 +91,7 @@ public class Main {
 
 		glClearColor(0.0f, 0.0f, 0.0f, 0.0f);
 
-		glMatrixMode(GL_PROJECTION);
-		glLoadIdentity();
 		glOrtho(0, screenWidth, screenHeight, 0, -1, 1);
-		glMatrixMode(GL_MODELVIEW);
 
 		while (!glfwWindowShouldClose(window)) {
 			glClear(GL_COLOR_BUFFER_BIT | GL_DEPTH_BUFFER_BIT);
