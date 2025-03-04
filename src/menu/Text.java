@@ -4,7 +4,7 @@ public class Text extends DisplayElement{
 
 	private String text;
 	
-	public Text(int relativeX, int relativeY, String text) {
+	public Text(int relativeX, int relativeY, Menu menu, String text) {
 		// TODO Auto-generated constructor stub
 	}
 
@@ -14,12 +14,6 @@ public class Text extends DisplayElement{
 		
 	}
 
-	public String getText() {
-		return text;
-	}
-
-	public void setText(String text) {
-		this.text = text;
-	}
-
+	public String getText() { return text; }
+	public void setText(String text) { this.text = text; }
 }

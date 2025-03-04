@@ -8,11 +8,12 @@ import static org.lwjgl.glfw.GLFW.*;
 import static org.lwjgl.opengl.GL11.*;
 
 public class Main{
+	private static final int TARGET_FPS = 60; // Set TARGET_FPS to -1 if you don't want to limit
+	private static final double TARGET_TIME = 1/(double)TARGET_FPS;
+	
 	private Window window;
 	private int width = 1920;
 	private int height = 1080;
-	private static int TARGET_FPS = 60; // Set TARGET_FPS to -1 if you don't want to limit
-	private static double targetTime = 1/(double)TARGET_FPS;
 	private double dt;
 	private int currentFPS;
 
@@ -42,7 +43,7 @@ public class Main{
 			long currentTime = System.nanoTime()/1000;
 			this.dt = (currentTime-lastTime)/1000.0;
 			
-			if ( targetTime <= this.dt ) {
+			if ( TARGET_TIME <= this.dt ) {
 				this.currentFPS = (int) (1/this.dt);
 				this.render();
 				this.update();
