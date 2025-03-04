@@ -22,20 +22,20 @@ public class Camera {
             y = currentRoom.getY() + (float) currentRoom.getSizeY() / 2;
         } else {
             // Update x based on player position and room size
-            x = (currentRoom.getSizeX() < screenWidth)
+            x = (currentRoom.getSizeX() <= screenWidth)
                     ? currentRoom.getX() + (float) currentRoom.getSizeX() / 2
-                    : (player.getX() - screenWidth / 2 > currentRoom.getX() && player.getX() + screenWidth / 2 < currentRoom.getX() + currentRoom.getSizeX())
+                    : (player.getX() - screenWidth / 2 >= currentRoom.getX() && player.getX() + screenWidth / 2 <= currentRoom.getX() + currentRoom.getSizeX())
                     ? player.getX()
-                    : (player.getX() - screenWidth / 2 < currentRoom.getX())
+                    : (player.getX() - screenWidth / 2 <= currentRoom.getX())
                     ? currentRoom.getX() + screenWidth / 2
                     : currentRoom.getX() + currentRoom.getSizeX() - screenWidth / 2;
 
             // Update y based on player position and room size
-            y = (currentRoom.getSizeY() < screenHeight)
+            y = (currentRoom.getSizeY() <= screenHeight)
                     ? currentRoom.getY() + (float) currentRoom.getSizeY() / 2
-                    : (player.getY() - screenHeight / 2 > currentRoom.getY() && player.getY() + screenHeight / 2 < currentRoom.getY() + currentRoom.getSizeY())
+                    : (player.getY() - screenHeight / 2 >= currentRoom.getY() && player.getY() + screenHeight / 2 <= currentRoom.getY() + currentRoom.getSizeY())
                     ? player.getY()
-                    : (player.getY() - screenHeight / 2 < currentRoom.getY())
+                    : (player.getY() - screenHeight / 2 <= currentRoom.getY())
                     ? currentRoom.getY() + screenHeight / 2
                     : currentRoom.getY() + currentRoom.getSizeY() - screenHeight / 2;
         }
