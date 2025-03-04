@@ -1,8 +1,8 @@
 package utils;
 
-public class Node {
+public class Vector {
 
-	public Node() {
+	public Vector() {
 		// TODO Auto-generated constructor stub
 	}
 
