@@ -14,10 +14,6 @@ public class Player extends Entity {
     private float x, y;
     private float speed = 12.0f;
     private float size = 50.0f; // Adjusted size for better wall collision
-    private ArrayList<Image> renderMovement;
-    private ArrayList<Image> renderAttack;
-    private ArrayList<Image> renderDamage; //Player takes damages
-    private ArrayList<Image> renderItemAnimation; //The PLAYER animation when using an item
 
     public Player(int id, float x, float y) {
         super(id, x, y);
@@ -92,7 +88,6 @@ public class Player extends Entity {
             boolean collidesBottom = false;
             boolean collidesTop = false;
 
-            System.out.println(newX+2*size + " " + (wallX));
             newX = collidesLeft ? wallX - 2*size : collidesRight ? wallX + wallSizeX : newX;
             newY = collidesTop ? wallY + wallSizeY + 2*size : collidesBottom ? wallY : newY;
         }

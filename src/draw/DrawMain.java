@@ -4,6 +4,7 @@ import static org.lwjgl.opengl.GL11.*;
 import java.util.List;
 
 import map.Entity;
+import map.Room;
 import player.Player;
 import player.Camera;
 import map.Map;
@@ -29,12 +30,18 @@ public class DrawMain {
 
         float[] glCoords = convertCartesianToGL(player.getX(), player.getY());
 
+        DrawEntity.draw(player.getX(), player.getY(), player);
+        Animation.update(player);
+
+
         for (Room room : map.getRoomList()) {
             List<Entity> entities = Room.getListEntities();
 
             for (Entity entity : entities) {
+                Animation.update(entity);
                 float[] entityCoords = convertCartesianToGL(entity.getX(), entity.getY());
-                DrawEntity.draw(entityCoords[0], entityCoords[1], Animation.getTextureID(entity));
+                DrawEntity.draw(entityCoords[0], entityCoords[1], entity);
+
             }
         }
     }

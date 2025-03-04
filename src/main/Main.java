@@ -20,7 +20,7 @@ public class Main{
 	private Window window;
 	private int screenWidth;
 	private int screenHeight;
-	private double dt;
+	public static double dt;
 	private int currentFPS;
 	// For the Game
 	private Player player;
@@ -48,7 +48,7 @@ public class Main{
 		this.window.create();
 
 		//Instance game data
-		player = new Player(0, 700, 600);
+		player = new Player(0, 350, 350);
 
 		map = new Map();
 		Room room1 = new Room(0, 0, 300, 300, 500, 200);
@@ -98,7 +98,7 @@ public class Main{
 	}
 	
 	private void update() {
-		this.player.update(window, map);
+		this.player.update(window.getWindow(), map);
 		this.camera.update(map, screenHeight, screenWidth);
 		this.window.update();
 	}

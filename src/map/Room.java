@@ -7,7 +7,7 @@ public class Room {
     private int type; // 0 = Classic room, 1 = Pathway
     private int x, y;
     private int sizeX, sizeY;
-    private ArrayList<Entity> listEntities;
+    private static ArrayList<Entity> listEntities;
     private ArrayList<Wall> listWalls;
 
     public Room(int ID, int type, int x, int y, int sizeX, int sizeY) {
@@ -26,7 +26,7 @@ public class Room {
     public int getY() { return y; }
     public int getSizeX() { return sizeX; }
     public int getSizeY() { return sizeY; }
-    public ArrayList<Entity> getListEntities() { return listEntities; }
+    public static ArrayList<Entity> getListEntities() { return listEntities; }
     public ArrayList<Wall> getListWalls() { return listWalls; }
 
     public void addEntity(Entity entity) { listEntities.add(entity); }
