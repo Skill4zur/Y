@@ -42,57 +42,8 @@ public class Player extends Entity {
     }
 
     public void updatePosition(float newX, float newY, Map map) {
-        // Correct position if there are wall collisions
-        float[] correctedPosition = getCorrectedPosition(newX, newY, map);
-        x = correctedPosition[0];
-        y = correctedPosition[1];
-    }
-
-    private float[] getCorrectedPosition(float newX, float newY, Map map) {
-        float[] corrected;
-        Room currentRoom = map.getCurrentRoom();
-        corrected = checkRoomCollide(newX, newY, currentRoom);
-        corrected =  checkWallCollide(corrected, currentRoom);
-        return corrected;
-    }
-
-    private float[] checkRoomCollide(float newX, float newY, Room currentRoom){
-         float roomX = currentRoom.getX();
-         float roomY = currentRoom.getY();
-         float roomSizeX = currentRoom.getSizeX();
-         float roomSizeY = currentRoom.getSizeY();
-
-        newX = (newX <= roomX) ? roomX : newX;
-        newX = (newX + 2*size >= roomX + roomSizeX) ? roomX + roomSizeX - 2*size : newX;
-        newY = (newY - 2*size <= roomY) ? roomY+2*size : newY;
-        newY = (newY >= roomY + roomSizeY) ? roomY+roomSizeY : newY;
-
-        return new float[] {newX, newY};
-    }
-
-    private float[] checkWallCollide(float[] corrected, Room currentRoom) {
-        float roomX = currentRoom.getX();
-        float roomY = currentRoom.getY();
-        float newX = corrected[0];
-        float newY = corrected[1];
-
-        for (Wall wall : currentRoom.getListWalls()) {
-            float wallX = roomX + wall.getX(); // Absolute position of the wall
-            float wallY = roomY + wall.getY();
-            float wallSizeX = wall.getSizeX();
-            float wallSizeY = wall.getSizeY();
-
-            // Check for collision with walls
-            boolean collidesLeft = false;
-            boolean collidesRight = false;
-            boolean collidesBottom = false;
-            boolean collidesTop = false;
-
-            newX = collidesLeft ? wallX - 2*size : collidesRight ? wallX + wallSizeX : newX;
-            newY = collidesTop ? wallY + wallSizeY + 2*size : collidesBottom ? wallY : newY;
-        }
-
-        return new float[]{newX, newY};
+        x = newX;
+        y = newY;
     }
 
     public float getX() { return x; }

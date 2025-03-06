@@ -1,5 +1,6 @@
 package main;
 
+import map.Entity;
 import utils.Window;
 
 import org.lwjgl.glfw.*;
@@ -26,6 +27,7 @@ public class Main{
 	private Player player;
 	private Map map;
 	private Camera camera;
+	private Entity entity;
 
 	private void run() {
 		this.init();
@@ -55,6 +57,17 @@ public class Main{
 		Room room2 = new Room(1, 0, 600, 600, 5500, 500);
 		map.addRoom(room1);
 		map.addRoom(room2);
+
+		for (int row = 0; row < 500; row++) {
+			for (int col = 0; col < 500; col++) {
+				float x = 700 + (col * 100);
+				float y = 700 + (row * 100);
+
+				Entity entity = new Entity(1, x, y);
+				map.addEntity(entity);
+			}
+		}
+
 
 		Wall wall1 = new Wall(150, 150, 200, 200); // (x, y, width, height)
 		room2.addWall(wall1);

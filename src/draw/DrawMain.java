@@ -30,20 +30,33 @@ public class DrawMain {
 
         float[] glCoords = convertCartesianToGL(player.getX(), player.getY());
 
-        DrawEntity.draw(player.getX(), player.getY(), player);
-        Animation.update(player);
+        DrawEntity.draw(glCoords[0], glCoords[1], player);
 
+        Animation.update(map);
 
-        for (Room room : map.getRoomList()) {
-            List<Entity> entities = Room.getListEntities();
-
-            for (Entity entity : entities) {
-                Animation.update(entity);
+        for (Entity entity : Map.getListEntities()) {
+            // Check if entity is within screen bounds before rendering
+            if (isEntityVisible(entity)) {
                 float[] entityCoords = convertCartesianToGL(entity.getX(), entity.getY());
                 DrawEntity.draw(entityCoords[0], entityCoords[1], entity);
-
             }
         }
-    }
 
+    }
+    private static boolean isEntityVisible(Entity entity) {
+        float entityX = entity.getX();
+        float entityY = entity.getY();
+
+        float cameraX = camera.getX();
+        float cameraY = camera.getY();
+
+        float halfScreenWidth = ScreenWidth / 2;
+        float halfScreenHeight = ScreenHeight / 2;
+
+        // Check if entity is inside the visible screen bounds
+        return entityX >= (cameraX - halfScreenWidth) &&
+                entityX <= (cameraX + halfScreenWidth) &&
+                entityY >= (cameraY - halfScreenHeight) &&
+                entityY <= (cameraY + halfScreenHeight);
+    }
 }

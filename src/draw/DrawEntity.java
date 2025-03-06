@@ -1,21 +1,22 @@
 package draw;
 
 import map.Entity;
-
 import static org.lwjgl.opengl.GL11.*;
 
 public class DrawEntity {
     public static void draw(float x, float y, Entity entity) {
         glEnable(GL_TEXTURE_2D);
+        glEnable(GL_BLEND);
+        glBlendFunc(GL_SRC_ALPHA, GL_ONE_MINUS_SRC_ALPHA);
 
-        int textureID = entity.getRenderAnimation(entity.getAnimationTagID()[0], entity.getAnimationTagID()[1]);
+        int textureID = entity.getCurrentTexture(entity.getAnimationTag()[0], entity.getAnimationTag()[1]);
+
         glBindTexture(GL_TEXTURE_2D, textureID);
 
         glTexParameteri(GL_TEXTURE_2D, GL_TEXTURE_MIN_FILTER, GL_LINEAR);
         glTexParameteri(GL_TEXTURE_2D, GL_TEXTURE_MAG_FILTER, GL_LINEAR);
-        glColor3f(1.0f, 1.0f, 1.0f); // Room color (gray)
+        glColor3f(1.0f, 1.0f, 1.0f); // Set color (white)
 
-        // Draw the entity (a quad in this case)
         glBegin(GL_QUADS);
         glTexCoord2f(0.0f, 0.0f); glVertex2f(x, y);
         glTexCoord2f(1.0f, 0.0f); glVertex2f(x + 100, y);

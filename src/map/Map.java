@@ -4,11 +4,15 @@ import java.util.ArrayList;
 
 public class Map {
     private ArrayList<Room> roomList;
+    private static ArrayList<Entity> listEntities;
+
     private Room currentRoom;
 
+
     public Map() {
+        this.listEntities = new ArrayList<>();
         this.roomList = new ArrayList<>();
-        this.currentRoom = null; // Default value if no room is set initially
+        this.currentRoom = null;
     }
 
     public void addRoom(Room room) {
@@ -30,22 +34,24 @@ public class Map {
             float roomSizeX = room.getSizeX();
             float roomSizeY = room.getSizeY();
 
-            // Check if the player is inside this room's bounds
             if (playerX >= roomX && playerX <= roomX + roomSizeX &&
                     playerY >= roomY && playerY <= roomY + roomSizeY) {
                 currentRoom = room;
-                break; // If a room is found, break the loop
+                break;
             }
         }
     }
 
-    // Optional: If you want a quick lookup by room ID
     public Room getRoomById(int roomId) {
         for (Room room : roomList) {
             if (room.getID() == roomId) {
                 return room;
             }
         }
-        return null; // No room found
+        return null;
     }
+
+    public void addEntity(Entity entity) { listEntities.add(entity); }
+    public static ArrayList<Entity> getListEntities() { return listEntities; }
+
 }
